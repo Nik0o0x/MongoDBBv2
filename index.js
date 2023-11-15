@@ -1,9 +1,11 @@
 //zaimportuj bibliotekę express (serwer http)
 const express = require('express');
 //przygotuj instancję serwera http
+const bodyParser = require('body-parser');
 const app = express();
 //zaimportuj nasze funkcje do danych
 const db = require('./db');
+app.use(bodyParser.urlencoded({extended: true}));
 
 //zdefiniuj ścieżkę dla głownego "folderu" aplikacji przy użyciu żądania GET
 //używamy funkcji asynchronicznej pod przyszłe funkcje mongodb
@@ -27,6 +29,12 @@ app.get('/lista', async (req, res) => {
     db.close(client);
     res.end();
 })
+
+app.post('/search', async (req, res) => {
+console.log(req.body);
+res.send(200);
+
+});
 
 //uruchom serwer
 app.listen(8000);
